@@ -23,7 +23,7 @@ function createGalleryMarkup(galleryItems) {
     }).join("");
 }
 
-let instance = basicLightbox.create(`<img width="1400" height="900" src=src="https://placehold.it/1400x900">`);
+let instance = basicLightbox.create(`<img width="1400" height="900" src="">`);
 
 function onGalleryItemClick(event) {
     event.preventDefault();
@@ -31,10 +31,10 @@ function onGalleryItemClick(event) {
     if (!event.target.classList.contains("gallery__image")) {
         return;
     }
-    instance = basicLightbox.create(`<img width="1400" height="900" src=${event.target.dataset.source}>`)
+    instance = basicLightbox.create(`<img width="1400" height="900" src=${event.target.dataset.source}>`, { onShow: (instance) => { document.addEventListener('keydown', onEscapeKeyPress) }, onClose: (instance) => { document.removeEventListener('keydown', onEscapeKeyPress) } });
     instance.show()
 
-    window.addEventListener('keydown', onEscapeKeyPress)
+    // window.addEventListener('keydown', onEscapeKeyPress)
 }
 
 function onEscapeKeyPress() {
